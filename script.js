@@ -43,7 +43,7 @@ const render = () => {
   let items = 0;
   let ctr = 0;
   console.log(waveform.length + `10px`);
-  for (let x = 0; x < waveform.length; x++) {
+  for (let x = 0; x < Math.min(waveform.length, 10000); x++) {
     items += channel.max_sample(x);
     if (x % include !== 0) {
       continue;
