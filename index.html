@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="module" src="./script.js"></script>
+  </head>
+  <body>
+  <div id="canvas-container">
+    <canvas id="canvas" height="50px" width="2000px"></canvas>
+  </div>
+    <input type="range" name="lines" id="lines-range" min="0" max="500">
+  </body>
+  <style>
+    #canvas-container {
+      border: 1px solid black;
+      padding: 15px;
+      /* width: max-content; */
+      width: 100vw - 30px;
+      overflow: auto;
+    }
+    #canvas {
+      /* border: 1px solid red; */
+    }
+  </style>
+</html>
