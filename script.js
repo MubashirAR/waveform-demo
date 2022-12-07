@@ -9,7 +9,7 @@ const buffer = await response.json();
 const waveform = await WaveformData.create(buffer);
 const zoom = 1;
 const zoomMultiplier = 1.3;
-let lineCount = 100;
+let lineCount = 10;
 
 const scaleY = (amplitude, height) => {
   const range = 256;
@@ -20,11 +20,26 @@ const scaleY = (amplitude, height) => {
 
 const range = document.getElementById('lines-range');
 const canvas = document.getElementById('canvas');
+const zoomIn = document.getElementById('zoom-in-btn');
+const zoomOut = document.getElementById('zoom-out-btn');
 const ctx = canvas.getContext('2d');
+
+range.value = lineCount;
 
 range.addEventListener('change', (e) => {
   lineCount = e.target.value;
   console.log({ lineCount });
+  render();
+});
+
+zoomIn.addEventListener('click', (e) => {
+  lineCount = Math.min(range.max, lineCount + 50);
+  range.value = lineCount;
+  render();
+});
+zoomOut.addEventListener('click', () => {
+  lineCount = Math.max(range.min, lineCount - 50);
+  range.value = lineCount;
   render();
 });
 const render = () => {
@@ -43,9 +58,9 @@ const render = () => {
   let items = 0;
   let ctr = 0;
   console.log(waveform.length + `10px`);
-  for (let x = 0; x < Math.min(waveform.length, 10000); x++) {
+  for (let x = 0; x < waveform.length; x++) {
     items += channel.max_sample(x);
-    if (x % include !== 0) {
+    if (x % include !== 0 && x !== waveform.length - 1) {
       continue;
     }
     // console.log({ctr}, ctr++)
